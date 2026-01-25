@@ -1,5 +1,74 @@
 [
   {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "GetBudgets",
+    "RelativePath": "api/budget",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "budgetId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "UpdateBudget",
+    "RelativePath": "api/budget/{budgetId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "budgetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.BudgetUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "DeleteBudget",
+    "RelativePath": "api/budget/{budgetId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "budgetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "CreateBudget",
+    "RelativePath": "api/budget/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.BudgetCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "InternalBudgetTracker.Controllers.UsersController",
     "Method": "Login",
     "RelativePath": "api/users/login",

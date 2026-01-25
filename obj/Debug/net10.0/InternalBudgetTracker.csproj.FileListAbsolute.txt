@@ -160,3 +160,5 @@ C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\obj\De
 C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\obj\Debug\net10.0\InternalBudgetTracker.pdb
 C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\obj\Debug\net10.0\InternalBudgetTracker.genruntimeconfig.cache
 C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\obj\Debug\net10.0\ref\InternalBudgetTracker.dll
+C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\obj\Debug\net10.0\InternalBudgetTracker.sourcelink.json
+C:\Users\2467438\source\repos\InternalBudgetTracker\InternalBudgetTracker\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

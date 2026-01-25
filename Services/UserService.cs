@@ -1,52 +1,4 @@
-﻿//using InternalBudgetTracker.Data;
-//using InternalBudgetTracker.DTOs;
-//using InternalBudgetTracker.Models;
-//using System.Threading.Tasks;
-
-//namespace InternalBudgetTracker.Services
-//{
-//    public class UserService
-//    {
-//        private readonly AppDbContext _context;
-
-//        public UserService(AppDbContext context)
-//        {
-//            _context = context;
-//        }
-//        public void RegisterManager(UserRegisterDTO model)
-//        {
-//            User user = new User
-//            {
-//                Name = model.Name,
-//                Email = model.Email,
-//                Password= model.Password,
-//                Role = "Manager"   // 👈 auto role
-//            };
-
-//            _context.Users.Add(user);
-//            _context.SaveChanges();
-//        }
-
-//        public void RegisterEmployee(UserRegisterDTO model)
-//        {
-//            User user = new User
-//            {
-//                Name = model.Name,
-//                Email = model.Email,
-//                Password = model.Password,
-//                Role = "Employee"  // 👈 auto role
-//            };
-
-//            _context.Users.Add(user);
-//            _context.SaveChanges();
-
-
-
-//        }
-//    }
-//}
-
-
+﻿
 using InternalBudgetTracker.Data;
 using InternalBudgetTracker.DTOs;
 using InternalBudgetTracker.Enum;
@@ -58,7 +10,7 @@ public class UserService
 {
     private readonly AppDbContext _context;
     private readonly HelperService _helperService;
-    
+
 
     public UserService(AppDbContext context, HelperService helperService)
     {
@@ -143,7 +95,7 @@ public class UserService
         string email = result.data.email;
 
         if (string.IsNullOrWhiteSpace(email)) throw new Exception("Email not found in token");
-        
+
         var user = _context.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
         if (user == null)
             throw new Exception("Invalid User");
@@ -157,14 +109,14 @@ public class UserService
     // ===============================
     // LOGIN USER
     // ===============================
-    public string Login(UserLoginDTO dto)
+    public Dictionary<string, string> Login(UserLoginDTO dto)
     {
         string hashPassword =
             _helperService.GenerateHashPassword(dto.Password);
 
-        var user = _context.Users.FirstOrDefault(
-            u => u.Email.ToLower()== dto.Email.ToLower() && u.Password == hashPassword
-        );
+    var user = _context.Users.FirstOrDefault(
+        u => u.Email.ToLower() == dto.Email.ToLower() && u.Password == hashPassword
+    );
 
         if (user == null)
             throw new Exception("Invalid username or password");
@@ -172,10 +124,17 @@ public class UserService
         if (!user.IsVerified)
             throw new Exception("Please verify your email first");
 
-        return _helperService.GenerateToken(
-            user.Email,
-            user.Role.ToString()
-        );
+    var token = _helperService.GenerateToken(
+        user.Email,
+        user.Role.ToString()
+    );
+        
+         return new Dictionary<string, string>
+         {
+             {"token",token.ToString() },
+             {"role",user.Role.ToString()}
+
+         };
     }
 }
 

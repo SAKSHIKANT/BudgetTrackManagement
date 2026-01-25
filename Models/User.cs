@@ -20,22 +20,17 @@
                 [Required]
                 public string Password { get; set; }
                 public bool IsVerified { get; set; } = false;  // Default false
+               
+                [Column(TypeName = "nvarchar(20)")]
+                public UserRole Role { get; set; } = UserRole.Employee;
+                [Column(TypeName = "nvarchar(20)")]
+                 public UserStatus Status { get; set; } = UserStatus.Active;
+                //Foreign Key
+                [ForeignKey(nameof(Department))]
+                 public int DepartmentId { get; set; }
+                 public  Department Department { get; set; }
 
 
-               [Column(TypeName = "nvarchar(20)")]
-               public UserRole Role { get; set; } = UserRole.Employee;
-              [Column(TypeName = "nvarchar(20)")]
-               public UserStatus Status { get; set; } = UserStatus.Active;
-
-
-            //Foreign Key
-              [ForeignKey(nameof(Department))]
-               public int DepartmentId { get; set; }
-               public  Department Department { get; set; }
-
-
-                //// Navigation property
-                //public List<Expense> Expenses { get; set; }
             }
         }
 

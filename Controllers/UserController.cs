@@ -7,32 +7,7 @@ using System.Threading.Tasks;
 
 namespace InternalBudgetTracker.Controllers
 {
-    //[ApiController]
-    //[Route("api/[controller]")]
-    //public class UsersController : ControllerBase
-    //{
-    //    private readonly UserService _userService;
-
-    //    public UsersController(UserService userService)
-    //    {
-    //        _userService = userService;
-    //    }
-
-    //    [HttpPost("register-manager")]
-
-    //    public IActionResult RegisterManager(UserRegisterDTO model)
-    //    {
-    //        _userService.RegisterManager(model);
-    //        return Ok("Manager registered successfully");
-    //    }
-
-    //    // 👨‍💻 Employee registration
-    //    [HttpPost("register-employee")]
-    //    public IActionResult RegisterEmployee(UserRegisterDTO model)
-    //    {
-    //        _userService.RegisterEmployee(model);
-    //        return Ok("Employee registered successfully");
-    //    }
+    
 
     [ApiController]
     [Route("api/users")]
@@ -65,7 +40,12 @@ namespace InternalBudgetTracker.Controllers
 
         [HttpPost("login")]
         public IActionResult Login(UserLoginDTO dto)
-            => Ok(new { token = _userService.Login(dto) });
+        {
+            var result = _userService.Login(dto);
+            return Ok(result);
+        }
+           
+
     }
 
 }
