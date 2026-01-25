@@ -1,6 +1,7 @@
 ﻿using InternalBudgetTracker.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata;
 
 namespace InternalBudgetTracker.Models
 {
@@ -21,6 +22,8 @@ namespace InternalBudgetTracker.Models
         public DateTime? StartDate{get; set;}
         public DateTime? EndDate { get; set; }
 
+        
+       // [Column(TypeName = "nvarchar(20)")]
         public ExpenseStatus Status { get; set; } = ExpenseStatus.Pending;
 
         //  Budget relation

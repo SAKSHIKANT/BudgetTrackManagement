@@ -86,12 +86,13 @@ namespace InternalBudgetTracker.Services
 
         public string UpdateExpense(int expenseId, ExpenseUpdateDTO dto, ClaimsPrincipal user)
         {
-            int userId = int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = int.Parse(userIdClaim.Value);
 
             var expense = _context.Expenses.FirstOrDefault(e =>
                 e.ExpenseId == expenseId &&
                 e.EmployeeId == userId &&
-                //e.Status == ExpenseStatus.Pending 
+                e.Status == ExpenseStatus.Pending && 
                 e.EndDate == null
             );
 
