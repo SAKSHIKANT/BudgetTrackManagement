@@ -3,6 +3,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration.UserSecrets;
 namespace InternalBudgetTracker.Services
 {
     
@@ -36,13 +37,14 @@ namespace InternalBudgetTracker.Services
 
        
  
-public string GenerateToken(string email, string role)
+public string GenerateToken(int userId,string email, string role)
     {
         string secretKey = _configuration["Security:SecretKey"];
 
         var claims = new[]
         {
-         new  Claim(ClaimTypes.Name,email),
+           new Claim(ClaimTypes.NameIdentifier,userId.ToString()),
+         //new  Claim(ClaimTypes.Name,email),
         new Claim(ClaimTypes.Email, email),
         new Claim(ClaimTypes.Role, role)
     };

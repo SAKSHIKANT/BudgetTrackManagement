@@ -14,7 +14,12 @@ namespace InternalBudgetTracker.Models
         public decimal Amount { get; set; }
         public string  Description { get; set; }
 
-        public DateTime ExpenseDate { get; set; } = DateTime.Now;
+        public DateTime SubmittedDate{ get; set; } = DateTime.UtcNow;
+
+        public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
+
+        public DateTime? StartDate{get; set;}
+        public DateTime? EndDate { get; set; }
 
         public ExpenseStatus Status { get; set; } = ExpenseStatus.Pending;
 
@@ -27,9 +32,9 @@ namespace InternalBudgetTracker.Models
         public int EmployeeId { get; set; }
         public User Employee { get; set; }
 
-        //   Currently Assigned Manager (IMPORTANT)
-        public int AssignedManagerId { get; set; }
-        public User AssignedManager { get; set; }
+        ////   Currently Assigned Manager (IMPORTANT)
+        //public int AssignedManagerId { get; set; }
+        //public User AssignedManager { get; set; }
 
        
     }

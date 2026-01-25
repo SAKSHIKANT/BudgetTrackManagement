@@ -20,9 +20,13 @@ namespace InternalBudgetTracker.Models
         public User Manager { get; set; }
 
         // Approved / Rejected
-        public ExpenseStatus Status { get; set; }
+        public ExpenseStatus Status { get; set; }=ExpenseStatus.Pending;
 
-        // When action was taken
-        public DateTime ActionDate { get; set; } = DateTime.Now;
+        // When manager asseined
+        public DateTime StartDate { get; set; } = DateTime.Now;
+
+        //when approve/reject
+        public DateTime? EndDate { get; set; } 
+        public string? Comment { get; set; }
     }
 }

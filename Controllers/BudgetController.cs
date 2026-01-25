@@ -56,9 +56,9 @@ namespace InternalBudgetTracker.Controllers
             return Ok(new { status = 200, data,message="success" });
         }
 
-
+        [Authorize(Roles = "Manager")]
         [HttpPatch("{budgetId}")]
-        [Authorize]
+        
         public IActionResult UpdateBudget(int budgetId,[FromBody] BudgetUpdateDTO dto)
         {
             try
@@ -87,7 +87,8 @@ namespace InternalBudgetTracker.Controllers
 
 
         //Delete Budget
-        [HttpDelete("{budgetId}")]
+        [Authorize(Roles = "Manager")]
+        [HttpPatch("delete/{budegtId}")]
         public IActionResult DeleteBudget(int budgetId)
         {
             try

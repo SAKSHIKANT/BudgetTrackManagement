@@ -18,16 +18,19 @@ namespace InternalBudgetTracker.Services
         public string CreateBudget(BudgetCreateDTO dto, ClaimsPrincipal user)
         {
             //get data from token
-            var userIdClaim = user.FindFirst("UserId");
-            var roleClaim = user.FindFirst("role");
+            //Console.WriteLine(user);
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+             var roleClaim = user.FindFirst(ClaimTypes.Role);
+            var emailClaim = user.FindFirst(ClaimTypes.Email);
+           
 
-            if (userIdClaim == null || roleClaim == null)
+            if ( userIdClaim==null ||roleClaim == null)
                 throw new Exception("Invalid token");
 
             if (roleClaim.Value != "Manager")
                 throw new Exception("Invalid permission");
 
-            int userId = int.Parse(userIdClaim.Value);
+            var userId = int.Parse(userIdClaim.Value);
 
             //Budget create
             var budget = new Budget
@@ -37,7 +40,9 @@ namespace InternalBudgetTracker.Services
                 StartDate = DateTime.UtcNow,
                 EndDate = null,
                 CreatedByUserId = userId,
-                Status = BudgetStatus.Active
+                Status = BudgetStatus.Active,
+                DepartmentId = dto.DepartmentId
+
             };
 
             _context.Budgets.Add(budget);
@@ -112,7 +117,7 @@ namespace InternalBudgetTracker.Services
         }
 
 
-        //Srvice to delete Budget
+        //Service to delete Budget
         public string DeleteBudget(int budgetId, ClaimsPrincipal user)
         {
             // 1️⃣ Token se data nikalna

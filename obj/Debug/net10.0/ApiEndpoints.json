@@ -38,22 +38,6 @@
   },
   {
     "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
-    "Method": "DeleteBudget",
-    "RelativePath": "api/budget/{budgetId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "budgetId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
     "Method": "CreateBudget",
     "RelativePath": "api/budget/create",
     "HttpMethod": "POST",
@@ -63,6 +47,96 @@
       {
         "Name": "dto",
         "Type": "InternalBudgetTracker.DTOs.BudgetCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "DeleteBudget",
+    "RelativePath": "api/budget/delete/{budegtId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "budgetId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "budegtId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
+    "Method": "GetExpenses",
+    "RelativePath": "api/expense",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "expenseId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
+    "Method": "CreateExpense",
+    "RelativePath": "api/expense/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.ExpenseCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
+    "Method": "DeleteExpense",
+    "RelativePath": "api/expense/delete/{expenseId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "expenseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
+    "Method": "UpdateExpense",
+    "RelativePath": "api/expense/update/{expenseId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "expenseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.ExpenseUpdateDTO",
         "IsRequired": true
       }
     ],

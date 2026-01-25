@@ -41,6 +41,7 @@ public class UserService
         _context.SaveChanges();
 
         string token = _helperService.GenerateToken(
+            user.UserId,
             user.Email,
             user.Role.ToString()
         );
@@ -73,6 +74,7 @@ public class UserService
         _context.SaveChanges();
 
         string token = _helperService.GenerateToken(
+            user.UserId,
             user.Email,
             user.Role.ToString()
         );
@@ -125,8 +127,10 @@ public class UserService
             throw new Exception("Please verify your email first");
 
     var token = _helperService.GenerateToken(
+        user.UserId,
         user.Email,
         user.Role.ToString()
+        
     );
         
          return new Dictionary<string, string>
