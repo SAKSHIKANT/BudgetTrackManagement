@@ -79,8 +79,9 @@ namespace InternalBudgetTracker.Services
         public string UpdateBudget(int budgetId,BudgetUpdateDTO dto,ClaimsPrincipal user )
         {
             // Token se data
-            var userIdClaim = user.FindFirst("UserId");
-            var roleClaim = user.FindFirst("role");
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            var roleClaim = user.FindFirst(ClaimTypes.Role);
+            var emailClaim = user.FindFirst(ClaimTypes.Email);
 
             if (userIdClaim == null || roleClaim == null)
                 throw new Exception("Invalid token");
@@ -121,8 +122,9 @@ namespace InternalBudgetTracker.Services
         public string DeleteBudget(int budgetId, ClaimsPrincipal user)
         {
             // 1️⃣ Token se data nikalna
-            var userIdClaim = user.FindFirst("UserId");
-            var roleClaim = user.FindFirst("role");
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            var roleClaim = user.FindFirst(ClaimTypes.Role);
+            var emailClaim = user.FindFirst(ClaimTypes.Email);
 
             if (userIdClaim == null || roleClaim == null)
                 throw new Exception("Invalid token");
@@ -135,7 +137,6 @@ namespace InternalBudgetTracker.Services
             // 2️⃣ Budget find karo
             var budget = _context.Budgets
                 .FirstOrDefault(b => b.BudgetId == budgetId && b.EndDate == null);
-
             if (budget == null)
                 throw new Exception("Invalid budget id");
 

@@ -19,11 +19,11 @@ namespace InternalBudgetTracker.Models
 
         public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime? StartDate{get; set;}
+        public DateTime? StartDate{get; set;}=DateTime.UtcNow;
         public DateTime? EndDate { get; set; }
 
         
-       // [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(20)")]
         public ExpenseStatus Status { get; set; } = ExpenseStatus.Pending;
 
         //  Budget relation
@@ -35,10 +35,7 @@ namespace InternalBudgetTracker.Models
         public int EmployeeId { get; set; }
         public User Employee { get; set; }
 
-        ////   Currently Assigned Manager (IMPORTANT)
-        //public int AssignedManagerId { get; set; }
-        //public User AssignedManager { get; set; }
-
+      
        
     }
 }

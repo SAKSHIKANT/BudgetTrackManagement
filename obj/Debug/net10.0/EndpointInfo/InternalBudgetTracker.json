@@ -58,7 +58,7 @@
         }
       }
     },
-    "/api/budget/{budgetId}": {
+    "/api/budget/update/{budgetId}": {
       "patch": {
         "tags": [
           "Budget"
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/api/budget/delete/{budegtId}": {
+    "/api/budget/delete/{budgetId}": {
       "patch": {
         "tags": [
           "Budget"
@@ -108,18 +108,11 @@
         "parameters": [
           {
             "name": "budgetId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "budegtId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -233,6 +226,83 @@
         "parameters": [
           {
             "name": "expenseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/expense/approve-reject/{expenseId}": {
+      "patch": {
+        "tags": [
+          "Expense"
+        ],
+        "parameters": [
+          {
+            "name": "expenseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpenseApprovalDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpenseApprovalDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpenseApprovalDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "tags": [
+          "Notification"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/notifications/read/{notificationId}": {
+      "patch": {
+        "tags": [
+          "Notification"
+        ],
+        "parameters": [
+          {
+            "name": "notificationId",
             "in": "path",
             "required": true,
             "schema": {
@@ -442,6 +512,20 @@
         },
         "additionalProperties": false
       },
+      "ExpenseApprovalDTO": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ExpenseCreateDTO": {
         "type": "object",
         "properties": {
@@ -546,6 +630,9 @@
     },
     {
       "name": "Expense"
+    },
+    {
+      "name": "Notification"
     },
     {
       "name": "Users"

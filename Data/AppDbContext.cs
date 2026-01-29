@@ -13,6 +13,7 @@ namespace InternalBudgetTracker.Data
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<ExpenseApproval> ExpenseApprovals { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

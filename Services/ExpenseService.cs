@@ -10,10 +10,12 @@ namespace InternalBudgetTracker.Services
     public class ExpenseService
     {
         private readonly AppDbContext _context;
+        private readonly  NotificationService _notificationService;
 
-        public ExpenseService(AppDbContext context)
+        public ExpenseService(AppDbContext context, NotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
         public string CreateExpense(ExpenseCreateDTO dto, ClaimsPrincipal user)
         {
@@ -56,6 +58,15 @@ namespace InternalBudgetTracker.Services
             _context.ExpenseApprovals.Add(approval);
             _context.SaveChanges();
 
+            //Notification to manager when expense create
+
+         _notificationService.CreateNotification(
+        dto.ManagerId,
+        NotificationType.ExpensePending,
+        $"An expense request of ₹{expense.Amount} has been submitted and is awaiting your approval."
+    );
+
+
             return "Expense created successfully";
         }
 
@@ -89,10 +100,13 @@ namespace InternalBudgetTracker.Services
             var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
             var userId = int.Parse(userIdClaim.Value);
 
+            //Console.WriteLine("user" + user);
+
+
             var expense = _context.Expenses.FirstOrDefault(e =>
                 e.ExpenseId == expenseId &&
                 e.EmployeeId == userId &&
-                e.Status == ExpenseStatus.Pending && 
+                e.Status == ExpenseStatus.Pending &&
                 e.EndDate == null
             );
 
@@ -132,6 +146,75 @@ namespace InternalBudgetTracker.Services
 
             _context.SaveChanges();
             return "Expense deleted successfully (soft delete)";
+        }
+
+        //Service for Expense approval or Reject
+        public string ApproveRejectExpense(int expenseId,ExpenseApprovalDTO dto, ClaimsPrincipal user)
+        {
+            //Token se manager id nikalo
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            var roleClaim = user.FindFirst(ClaimTypes.Role);
+
+            if (userIdClaim == null || roleClaim == null)
+                throw new Exception("Invalid token");
+
+            if (roleClaim.Value != "Manager")
+                throw new Exception("Only manager can approve/reject");
+
+            int managerId = int.Parse(userIdClaim.Value);
+
+            //  Expense approval mapping check
+            var approval = _context.ExpenseApprovals
+                .FirstOrDefault(a =>
+                    a.ExpenseId == expenseId &&
+                    a.ManagerId == managerId);
+
+            if (approval == null)
+                throw new Exception("Expense not assigned to you ");
+
+            if(approval.Status != ExpenseStatus.Pending ||approval.EndDate != null)
+                throw new Exception("Expense already processed ");
+
+            //  Expense fetch
+            var expense = _context.Expenses
+                .FirstOrDefault(e => e.ExpenseId == expenseId && e.EndDate == null);
+
+            if (expense == null)
+                throw new Exception("Invalid expense");
+
+            // Approve / Reject
+            //approval.IsApproved = dto.IsApproved;
+            if (dto.Action == "Approve")
+            {
+                approval.Status = ExpenseStatus.Approved;
+                expense.Status = ExpenseStatus.Approved;
+
+                //Notification to employee for approval
+                _notificationService.CreateNotification(expense.EmployeeId,NotificationType.ExpenseApproval,
+        $"Your expense of amount {expense.Amount} has been approved");
+
+            }
+            else if (dto.Action == "Reject")
+            {
+
+                approval.Status = ExpenseStatus.Rejected;
+                expense.Status = ExpenseStatus.Rejected;
+
+                //Notification to employee for rejection
+                _notificationService.CreateNotification(expense.EmployeeId,NotificationType.ExpenseRejected,
+               $"Your expense was rejected. Reason: {dto.Comment}");
+
+            }
+            else
+            {
+                throw new Exception("Invalid action");
+            }
+            approval.Comment = dto.Comment;
+            approval.EndDate = DateTime.UtcNow;
+            expense.EndDate = DateTime.UtcNow;
+            _context.SaveChanges();
+            return $"Expense {approval.Status} successfully";
+
         }
     }
 }

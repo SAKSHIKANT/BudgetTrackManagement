@@ -17,8 +17,40 @@
   },
   {
     "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "CreateBudget",
+    "RelativePath": "api/budget/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.BudgetCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
+    "Method": "DeleteBudget",
+    "RelativePath": "api/budget/delete/{budgetId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "budgetId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
     "Method": "UpdateBudget",
-    "RelativePath": "api/budget/{budgetId}",
+    "RelativePath": "api/budget/update/{budgetId}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -37,43 +69,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
-    "Method": "CreateBudget",
-    "RelativePath": "api/budget/create",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "InternalBudgetTracker.DTOs.BudgetCreateDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "InternalBudgetTracker.Controllers.BudgetController",
-    "Method": "DeleteBudget",
-    "RelativePath": "api/budget/delete/{budegtId}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "budgetId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "budegtId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
     "Method": "GetExpenses",
     "RelativePath": "api/expense",
@@ -85,6 +80,27 @@
         "Name": "expenseId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InternalBudgetTracker.Controllers.ExpenseController",
+    "Method": "ApproveRejectExpense",
+    "RelativePath": "api/expense/approve-reject/{expenseId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "expenseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "InternalBudgetTracker.DTOs.ExpenseApprovalDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -137,6 +153,32 @@
       {
         "Name": "dto",
         "Type": "InternalBudgetTracker.DTOs.ExpenseUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NotificationController",
+    "Method": "GetNotifications",
+    "RelativePath": "api/notifications",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NotificationController",
+    "Method": "MarkAsRead",
+    "RelativePath": "api/notifications/read/{notificationId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "notificationId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

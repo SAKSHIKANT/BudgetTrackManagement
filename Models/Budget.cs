@@ -19,7 +19,7 @@ namespace InternalBudgetTracker.Models
         public DateTime StartDate { get; set; }= DateTime.Now;
         public DateTime? EndDate { get; set; }
 
-        //Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(20)")]
         public BudgetStatus Status { get; set; } = BudgetStatus.Active;
 
         // Budget is created by a USER (Manager check controller/JWT me hoga)

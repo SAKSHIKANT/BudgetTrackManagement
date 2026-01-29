@@ -55,6 +55,18 @@ namespace InternalBudgetTracker.Controllers
             return Ok(new { message = result });
         }
 
+        //Approval_Reject API
+        [Authorize(Roles = "Manager")]
+        [HttpPatch("approve-reject/{expenseId}")]
+        public IActionResult ApproveRejectExpense(
+    int expenseId,
+    [FromBody] ExpenseApprovalDTO dto)
+        {
+            var result = _expenseService
+                .ApproveRejectExpense(expenseId, dto, User);
+
+            return Ok(new { message = result });
+        }
     }
 
 }
